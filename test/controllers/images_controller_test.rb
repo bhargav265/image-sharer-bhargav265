@@ -3,7 +3,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
     get root_path
     assert_response :ok
-    assert_select 'p', 'Hello Bhargav!'
   end
 
   test 'should get new' do
@@ -27,7 +26,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       post images_url, params: { image: { url: 'hello' } }
     end
     assert_response :ok
-    assert_equal('Invalid URL', flash[:notice])
+    assert_select '.invalid-feedback', 'Url is invalid!'
     assert_select 'form', count: 1
   end
 
