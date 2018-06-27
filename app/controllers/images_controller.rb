@@ -14,7 +14,6 @@ class ImagesController < ApplicationController
       flash[:notice] = 'Image Saved!'
       redirect_to @image
     else
-      flash[:notice] = 'Invalid URL'
       render :new
     end
   end
