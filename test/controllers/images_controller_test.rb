@@ -28,6 +28,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :ok
     assert_equal('Invalid URL', flash[:notice])
+    assert_select '.invalid-feedback', 'Url is invalid!'
     assert_select 'form', count: 1
   end
 

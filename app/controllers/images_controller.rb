@@ -4,7 +4,9 @@ class ImagesController < ApplicationController
     @images = @images.order(created_at: :desc)
   end
 
-  def new; end
+  def new
+    @image = Image.new
+  end
 
   def create
     @image = Image.new(params.require(:image).permit(:url))
