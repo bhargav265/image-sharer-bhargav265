@@ -2,7 +2,11 @@ class ImagesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :redirect_to_index
 
   def index
-    @images = Image.all
+    @images = if params[:tag]
+                Image.tagged_with(params[:tag])
+              else
+                Image.all
+              end
     @images = @images.order(created_at: :desc)
   end
 

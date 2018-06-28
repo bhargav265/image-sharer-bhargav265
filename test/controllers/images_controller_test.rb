@@ -63,6 +63,16 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should display images with only given tag value' do
+    image1 = Image.create!(url: 'http://luisjimenez.com/wp-content/uploads/2017/05/dog-1.jpg',
+                           tag_list: 'tag1, tag2')
+    image2 = Image.create!(url: 'https://cdn.britannica.com/300x500/55/31555-131-240223FB.jpg',
+                           tag_list: 'tag1, tag3')
+    get root_path(tag: 'tag2')
+    assert_select "img[src='#{image1.url}']", count: 1
+    assert_select "img[src='#{image2.url}']", count: 0
+  end
+
   test 'should delete the image' do
     image = Image.create!(
       url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
