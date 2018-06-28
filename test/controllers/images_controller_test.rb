@@ -13,7 +13,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create image' do
     assert_difference('Image.count') do
-      post images_url, params: { image: { url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif' } }
+      post images_url, params: { image: { url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                                          tag_list: 'bfrwkub, bcuksbc' } }
     end
     assert_equal('Image Saved!', flash[:notice])
     get image_path(Image.last.id)
@@ -21,9 +22,17 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "img[src='https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif']", count: 1
   end
 
+  test 'should save tags for image' do
+    assert_difference('Image.count') do
+      post images_url, params: { image: { url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                                          tag_list: 'abced, bksubvcksu' } }
+    end
+    assert_equal(Image.last.tag_list, %w[abced bksubvcksu])
+  end
+
   test 'should not create image' do
     assert_no_difference('Image.count') do
-      post images_url, params: { image: { url: 'hello' } }
+      post images_url, params: { image: { url: 'hello', tag_list: 'buwkrbf, bkshcb' } }
     end
     assert_response :ok
     assert_select '.invalid-feedback', 'Url is invalid!'
