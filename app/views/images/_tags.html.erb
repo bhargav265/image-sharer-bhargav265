@@ -1,3 +1,6 @@
+
 <% image.tag_list.each do |tag| %>
-  <button type="button" class="btn btn-primary"> <%= tag %></button>
+  <%= link_to tag, root_path(tag: tag), class: "btn btn-primary" %>
 <% end %>
+
+
