@@ -3,5 +3,6 @@
   <%= image_tag(@image.url) %>
 
   <%= render partial: 'tags', locals: { image: @image } %>
+  <%= render partial: 'deletebutton', locals: { image: @image } %>
 
 </p>
