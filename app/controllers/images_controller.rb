@@ -1,4 +1,6 @@
 class ImagesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :redirect_to_index
+
   def index
     @images = Image.all
     @images = @images.order(created_at: :desc)
@@ -23,9 +25,20 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
   end
 
+  def destroy
+    @image = Image.find(params[:id])
+    @image.destroy!
+    redirect_to images_path
+  end
+
   private
 
   def create_image_params
     params.require(:image)
+  end
+
+  def redirect_to_index
+    flash[:error] = 'Image not found'
+    redirect_to images_path
   end
 end

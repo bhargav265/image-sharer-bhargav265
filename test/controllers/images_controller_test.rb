@@ -62,4 +62,26 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       )
     end
   end
+
+  test 'should delete the image' do
+    image = Image.create!(
+      url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+      tag_list: 'brksjcf, bcjksbc'
+    )
+
+    assert_difference('Image.count', -1) do
+      delete image_url(image)
+    end
+
+    assert_redirected_to images_path
+  end
+
+  test 'should not delete the image which is non existent' do
+    assert_no_difference('Image.count') do
+      delete image_url(-1)
+    end
+
+    assert_redirected_to images_path
+    assert_equal('Image not found', flash[:error])
+  end
 end
