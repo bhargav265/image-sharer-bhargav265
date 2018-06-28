@@ -1,4 +1,7 @@
 <p>
   <strong>Image:</strong> <br/>
   <%= image_tag(@image.url) %>
+
+  <%= render partial: 'tags', locals: { image: @image } %>
+
 </p>
