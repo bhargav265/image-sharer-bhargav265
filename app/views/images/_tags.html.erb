@@ -3,7 +3,7 @@
 <% image.tag_list.each do |tag| %>
 <!--  <button type="button" class="btn btn-primary"> <%#= tag %></button>-->
 <!--    <input type="submit" class="btn btn-primary" value= <%#= tag %> />-->
-  <%= link_to tag, root_path(tag: tag)  %>
+  <%= link_to tag, root_path(tag: tag), class: "btn btn-primary" %>
     <%#= f.input :tag %>
   <%#= f.submit class: 'btn btn-primary', value: tag%>
 <%# end %>
