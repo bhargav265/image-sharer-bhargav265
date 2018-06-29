@@ -14,6 +14,10 @@ class ImagesController < ApplicationController
     @image = Image.new
   end
 
+  def edit
+    @image = Image.find(params[:id])
+  end
+
   def create
     @image = Image.new(create_image_params.permit(:url))
     @image.tag_list.add(create_image_params.permit(:tag_list)[:tag_list], parse: true)
@@ -22,6 +26,16 @@ class ImagesController < ApplicationController
       redirect_to @image
     else
       render :new
+    end
+  end
+
+  def update
+    @image = Image.find(params[:id])
+
+    if @image.update(create_image_params.permit(:url, :tag_list))
+      redirect_to @image
+    else
+      render 'edit'
     end
   end
 

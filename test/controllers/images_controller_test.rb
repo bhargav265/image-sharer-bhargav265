@@ -109,4 +109,13 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to images_path
     assert_equal('Image not found', flash[:error])
   end
+
+  test 'should edit image' do
+    image1 = Image.create!(url: 'http://luisjimenez.com/wp-content/uploads/2017/05/dog-1.jpg',
+                           tag_list: 'tag1, tag2')
+    new_tag_list = 'tag3, tag4'
+    image1.update(tag_list: new_tag_list)
+    new_tag_list = new_tag_list.split(", ")
+    assert_equal(image1.tag_list, new_tag_list)
+  end
 end
