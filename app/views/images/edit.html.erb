@@ -4,6 +4,11 @@
 
   <%= render partial: 'tags', locals: { image: @image } %>
   <%= render partial: 'deletebutton', locals: { image: @image } %>
-  <%= link_to "Edit", edit_image_path(@image), class: "btn btn-info" %>
+
+  <%= simple_form_for @image do |f| %>
+    <%= f.input :url %>
+    <%= f.input :tag_list, label: 'Tags', hint: 'Separate with commas' %>
+    <%= f.submit class: 'btn btn-primary' %>
+  <% end %>
 
 </p>

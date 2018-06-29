@@ -12,9 +12,8 @@
           <div class="card-footer bg-transparent border-success">
             <%= render partial: 'tags', locals: { image: image } %>
             <%= render partial: 'deletebutton', locals: { image: image } %>
+            <%= link_to "Edit", edit_image_path(image), class: "btn btn-info" %>
           </div>
-
-
         </div>
       <% end %>
     </div>
