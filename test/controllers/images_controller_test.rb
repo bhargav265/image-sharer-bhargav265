@@ -39,16 +39,31 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', count: 1
   end
 
+  test 'should not create image with no tags' do
+    assert_no_difference('Image.count') do
+      post images_url, params: {
+        image: { url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                 tag_list: '' }
+      }
+    end
+    assert_response :ok
+    assert_select '.invalid-feedback', 'Tag list cannot be empty'
+    assert_select 'form', count: 1
+  end
+
   test 'should show image' do
-    image = Image.create!(url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif')
+    image = Image.create!(url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                          tag_list: 'hello, bhargav')
     get image_path(image)
     assert_response :ok
     assert_select "img[src='https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif']", count: 1
   end
 
   test 'should display all images with newest image first' do
-    Image.create!(url: 'http://luisjimenez.com/wp-content/uploads/2017/05/dog-1.jpg')
-    Image.create!(url: 'https://cdn.britannica.com/300x500/55/31555-131-240223FB.jpg')
+    Image.create!(url: 'http://luisjimenez.com/wp-content/uploads/2017/05/dog-1.jpg',
+                  tag_list: 'hello, bhargav')
+    Image.create!(url: 'https://cdn.britannica.com/300x500/55/31555-131-240223FB.jpg',
+                  tag_list: 'hello, bhargav')
     get images_path
     assert_response :ok
     assert_select 'img' do |images|

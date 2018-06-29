@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
 
   def create
     @image = Image.new(create_image_params.permit(:url))
-    @image.tag_list.add(create_image_params.permit(:tag_list).require(:tag_list), parse: true)
+    @image.tag_list.add(create_image_params.permit(:tag_list)[:tag_list], parse: true)
     if @image.save
       flash[:notice] = 'Image Saved!'
       redirect_to @image
