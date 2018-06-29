@@ -15,14 +15,19 @@ class ImagesController < ApplicationController
   end
 
   def create
+    # if params[:image][:tag_list] != ""
     @image = Image.new(create_image_params.permit(:url))
-    @image.tag_list.add(create_image_params.permit(:tag_list).require(:tag_list), parse: true)
+    @image.tag_list.add(create_image_params.permit(:tag_list)[:tag_list], parse: true)
     if @image.save
       flash[:notice] = 'Image Saved!'
       redirect_to @image
     else
       render :new
     end
+    # else
+    #   flash[:error] = 'Tags should not be empty'
+    #   redirect_to images_path
+    # end
   end
 
   def show

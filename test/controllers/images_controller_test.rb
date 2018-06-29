@@ -39,6 +39,18 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form', count: 1
   end
 
+  test 'should not create image with no tags' do
+    assert_no_difference('Image.count') do
+      post images_url, params: {
+        image: { url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                 tag_list: '' }
+      }
+    end
+    assert_response :ok
+    assert_select '.invalid-feedback', 'Tag list cannot be empty'
+    assert_select 'form', count: 1
+  end
+
   test 'should show image' do
     image = Image.create!(url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif')
     get image_path(image)
