@@ -110,12 +110,21 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal('Image not found', flash[:error])
   end
 
-  test 'should edit image' do
+  test 'should update image' do
     image1 = Image.create!(url: 'http://luisjimenez.com/wp-content/uploads/2017/05/dog-1.jpg',
                            tag_list: 'tag1, tag2')
     new_tag_list = 'tag3, tag4'
-    image1.update(tag_list: new_tag_list)
+    put image_path(image1), params: { image: { tag_list: new_tag_list } }
+    assert_redirected_to image_path(image1)
     new_tag_list = new_tag_list.split(', ')
-    assert_equal(image1.tag_list, new_tag_list)
+    assert_equal(new_tag_list, image1.reload.tag_list)
+  end
+
+  test 'should edit image' do
+    image = Image.create!(url: 'https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif',
+                          tag_list: 'hello, bhargav')
+    get edit_image_path(image)
+    assert_response :ok
+    assert_select "img[src='https://media.giphy.com/media/8TziDRNomypOOE58dI/giphy.gif']", count: 1
   end
 end
