@@ -66,9 +66,6 @@ jobs:
             mkdir /tmp/test-results
 
             bundle exec rake test
-      - run:
-          name: run rubocop
-          command: bundle exec rubocop
 
       # collect reports
       - store_test_results:
