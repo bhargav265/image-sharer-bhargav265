@@ -5,8 +5,13 @@
   <%= render partial: 'tags', locals: { image: @image } %>
   <%= render partial: 'deletebutton', locals: { image: @image } %>
 
-  <%= simple_form_for @image do |f| %>
+  <%= simple_form_for @image, html: { multipart: true } do |f| %>
+    <%= f.file_field :image %>
+    <%= f.input :name %>
+    <%= f.input :location %>
+    <%= f.input :breed %>
     <%= f.input :url %>
+    <%= f.input :published, as: :boolean, label: 'Publish'  %>
     <%= f.input :tag_list, label: 'Tags', hint: 'Separate with commas' %>
     <%= f.submit class: 'btn btn-primary' %>
   <% end %>

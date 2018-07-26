@@ -1,14 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-  <a class="navbar-brand" href="#">Ropes Project</a>
+  <a class="navbar-brand" href="#">Dogs of Appfolio</a>
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
         <%= link_to 'Home', root_path, class: 'nav-link' %>
       </li>
-      <li class="nav-item">
-        <%= link_to 'New Image', new_image_path, class: 'nav-link' %>
-      </li>
+      <% if logged_in? %>
+        <li class="nav-item">
+          <%= link_to "Log out", logout_path, method: :delete, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'New Dog Image', new_image_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'My Images', current_user_images_path, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li><%= link_to "Log in", login_path, class: 'nav-link' %></li>
+      <% end %>
+
     </ul>
   </div>
 </nav>

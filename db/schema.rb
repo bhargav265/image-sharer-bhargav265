@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627160942) do
+ActiveRecord::Schema.define(version: 20180726224657) do
 
   create_table "images", force: :cascade do |t|
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "location"
+    t.string "breed"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer "user_id"
+    t.string "boolean"
+    t.boolean "published"
+    t.index ["user_id"], name: "index_images_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -41,6 +52,17 @@ ActiveRecord::Schema.define(version: 20180627160942) do
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.string "name"
+    t.string "email"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end

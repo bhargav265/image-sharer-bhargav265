@@ -1,6 +1,10 @@
 <h1>New Image</h1>
 
-<%= simple_form_for @image do |f| %>
+<%= simple_form_for @image, html: { multipart: true }  do |f| %>
+  <%= f.file_field :image %>
+  <%= f.input :name %>
+  <%= f.input :location %>
+  <%= f.input :breed %>
   <%= f.input :url %>
   <%= f.input :tag_list, label: 'Tags', hint: 'Separate with commas' %>
   <%= f.submit class: 'btn btn-primary' %>

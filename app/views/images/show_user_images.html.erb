@@ -1,0 +1,28 @@
+<div class="publish-all"> <%= link_to 'Publish All', publish_all_path, { method: :put, class: 'btn btn-primary' } %>  </div>
+<div class="album text-muted">
+  <div class="container">
+    <div class="card-columns">
+      <% @current_user_images.each do |image| %>
+        <div class="card">
+          <div class="card-body">
+            <%= link_to image_tag(image.image.url(:medium), class: 'card-img'), image_path(image)  %>
+          </div>
+
+          <div class="card-footer bg-transparent border-success">
+            <h3> <%= image.name %> </h3> <br>
+            <h5> <strong>Location: </strong><%= image.location %> </h5> <br>
+            <h5> <strong>Breed: </strong><%= image.breed %> </h5> <br>
+            <%= render partial: 'tags', locals: { image: image } %>
+            <%= render partial: 'deletebutton', locals: { image: image } %>
+            <%= link_to "Edit", edit_image_path(image), class: "btn btn-info" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= content_for :stylesheets do %>
+  <%= stylesheet_link_tag 'views/images/index' %>
+<% end %>
