@@ -40,6 +40,12 @@ class ImagesController < ApplicationController
     redirect_to :root
   end
 
+  def unpublish_all_images
+    @published_images = Image.where(user_id: current_user.id, published: true)
+    @published_images.update(published: false)
+    redirect_to :root
+  end
+
   def update
     @image = Image.find(params[:id])
     if @image.update(create_image_params.permit(:url, :tag_list, :name, :location, :breed, :image, :published))

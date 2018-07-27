@@ -1,7 +1,6 @@
 <p>
   <strong>Image:</strong> <br/>
   <%= image_tag(@image.image.url(:large)) %> <br>
-  <%= image_tag(@image.url) %>
   <h3><%= @image.name %></h3>
   <%= render partial: 'tags', locals: { image: @image } %>
   <%= render partial: 'deletebutton', locals: { image: @image } %>

@@ -16,6 +16,9 @@
         <li class="nav-item">
           <%= link_to 'My Images', current_user_images_path, class: 'nav-link' %>
         </li>
+        <li class="nav-item">
+        <%= link_to "Settings", edit_user_path(current_user), class: 'nav-link' %>
+        </li>
       <% else %>
         <li><%= link_to "Log in", login_path, class: 'nav-link' %></li>
       <% end %>

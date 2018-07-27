@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   resources :images, only: %i[index show new create destroy edit update]
   get '/current_user_images', to: 'images#show_user_images'
   put '/publish_all', to: 'images#publish_all_images'
+  put '/unpublish_all', to: 'images#unpublish_all_images'
+  resources :account_activations, only: [:edit]
   root 'images#index'
 end

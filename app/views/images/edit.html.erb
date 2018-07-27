@@ -1,6 +1,6 @@
 <p>
   <strong>Image:</strong> <br/>
-  <%= image_tag(@image.url) %>
+  <%= image_tag(@image.image.url(:medium)) %>
 
   <%= render partial: 'tags', locals: { image: @image } %>
   <%= render partial: 'deletebutton', locals: { image: @image } %>
@@ -10,7 +10,6 @@
     <%= f.input :name %>
     <%= f.input :location %>
     <%= f.input :breed %>
-    <%= f.input :url %>
     <%= f.input :published, as: :boolean, label: 'Publish'  %>
     <%= f.input :tag_list, label: 'Tags', hint: 'Separate with commas' %>
     <%= f.submit class: 'btn btn-primary' %>
