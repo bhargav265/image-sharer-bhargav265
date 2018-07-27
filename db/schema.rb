@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726224657) do
+ActiveRecord::Schema.define(version: 20180727015716) do
 
   create_table "images", force: :cascade do |t|
     t.string "url"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20180726224657) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "user_id"
-    t.string "boolean"
     t.boolean "published"
     t.index ["user_id"], name: "index_images_on_user_id"
   end
@@ -62,6 +61,10 @@ ActiveRecord::Schema.define(version: 20180726224657) do
     t.string "password_digest"
     t.string "name"
     t.string "email"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
+    t.string "remember_digest"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

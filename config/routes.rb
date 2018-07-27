@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   get 'sessions/new'
 
   get '/signup', to: 'users#new'
@@ -12,5 +16,6 @@ Rails.application.routes.draw do
   put '/publish_all', to: 'images#publish_all_images'
   put '/unpublish_all', to: 'images#unpublish_all_images'
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   root 'images#index'
 end
